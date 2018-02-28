@@ -4,6 +4,9 @@ sqoop import --connect jdbc:mysql://52.207.2.108/northwind --username temp --pas
 sqoop import --connect jdbc:mysql://52.207.2.108/northwind --username temp --password temp --target-dir /user/daniel/projectscript/NorthwindCustomers --m 1 --table Customers
 sqoop import --connect jdbc:mysql://52.207.2.108/northwind --username temp --password temp --target-dir /user/daniel/projectscript/NorthwindOrderDetails --m 1 --table 'Order Details'
 sqoop import --connect jdbc:mysql://52.207.2.108/northwind --username temp --password temp --target-dir /user/daniel/projectscript/NorthwindOrders --m 1 --table Orders
+#Use variables & loop
+tableNames = ['Products','Customers','Orders',`Order Details`]
+for i in range(len(tableNames)): sqoop import --connect jdbc:mysql://52.207.2.108/northwind --username temp --password temp --target-dir /user/daniel/projectscript/Northwind$tableNames[i] --m 1 --table $tableNames[i]
 
 #Create external hive table for each imported table
 beeline <<EOF 
@@ -29,7 +32,7 @@ STORED AS TEXTFILE
 LOCATION '/user/daniel/projectscript/NorthwindProducts';
 
 CREATE EXTERNAL TABLE IF NOT EXISTS NorthwindCustomers (
-CustomerID int,
+CustomerID string,
 CompanyName string,
 ContactName string,
 ContactTitle string,
@@ -61,7 +64,7 @@ STORED AS TEXTFILE
 LOCATION '/user/daniel/projectscript/NorthwindOrderDetails';
 
 CREATE EXTERNAL TABLE IF NOT EXISTS NorthwindOrders (
-CustomerID int,
+CustomerID string,
 EmployeeID int,
 OrderDate string,
 RequiredDate string,
@@ -82,3 +85,5 @@ STORED AS TEXTFILE
 LOCATION '/user/daniel/projectscript/NorthwindOrders';
 
 EOF
+
+
