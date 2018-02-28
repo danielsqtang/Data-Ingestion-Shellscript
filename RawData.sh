@@ -29,7 +29,19 @@ ROW FORMAT DELIMITED
 FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\n'
 STORED AS TEXTFILE
-LOCATION '/user/daniel/projectscript/NorthwindProducts';
+LOCATION '/user/daniel/projectscript/NorthwindProducts';drop table NorthwindCustomers;
+CREATE EXTERNAL TABLE IF NOT EXISTS NorthwindOrderDetails (
+OrderID int,
+ProductID int,
+UnitPrice int,
+Quantity int,
+Discount double
+)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'
+STORED AS TEXTFILE
+LOCATION '/user/daniel/projectscript/NorthwindOrderDetails';
 
 CREATE EXTERNAL TABLE IF NOT EXISTS NorthwindCustomers (
 CustomerID string,
@@ -44,9 +56,8 @@ Country string,
 Phone int,
 Fax int
 )
-ROW FORMAT DELIMITED
-FIELDS TERMINATED BY ','
-LINES TERMINATED BY '\n'
+ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
+WITH SERDEPROPERTIES ("separatorChar" = ",")
 STORED AS TEXTFILE
 LOCATION '/user/daniel/projectscript/NorthwindCustomers';
 
