@@ -47,6 +47,7 @@ LINES TERMINATED BY '\n'
 LOCATION '/user/daniel/projectscript/NorthwindFlattened'
 TBLPROPERTIES ("skip.header.line.count"="1");
 
+#Check table data
 select * from northwindflattened limit 5;
 
 EOF
