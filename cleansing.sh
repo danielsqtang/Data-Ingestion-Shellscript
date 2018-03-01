@@ -16,11 +16,13 @@ hive_context = HiveContext(sc)
 #Dropped duplicate columns by equi joining on multiple columns
 #create temp table and save to hive table
 
-for i in range(${#TABLENAMES[@]}):\
-$TABLENAMES[i] = hive_context.table("$DATABASE$TABLENAMES[i]")\
-$TABLENAMES[i] = $TABLENAMES[i].dropna(how='all')\
-$TABLENAMES[i] = $TABLENAMES[i].dropna(thresh=5)\
-$TABLENAMES[i] = $TABLENAMES[i].dropna(axis=1, how='all')\
-$TABLENAMES[i].createOrReplaceTempView("$TABLENAMES[i]")\
+for i in range(${#TABLENAMES[@]}):
+do
+$TABLENAMES[i] = hive_context.table("$DATABASE$TABLENAMES[i]")
+$TABLENAMES[i] = $TABLENAMES[i].dropna(how='all')
+$TABLENAMES[i] = $TABLENAMES[i].dropna(thresh=5)
+$TABLENAMES[i] = $TABLENAMES[i].dropna(axis=1, how='all')
+$TABLENAMES[i].createOrReplaceTempView("$TABLENAMES[i]")
 $TABLENAMES[i].write().mode("overwrite").saveAsTable("$DATABASE$TABLENAMES[i]")
+done
 EOF
