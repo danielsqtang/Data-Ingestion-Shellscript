@@ -29,13 +29,14 @@ ContactTitle string,
 Address string,
 City string,
 Region string,
-PostalCode int,
+PostalCode string,
 Country string,
-Phone int,
-Fax int
+Phone string,
+Fax string
 )
-ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
-WITH SERDEPROPERTIES ("separatorChar" = ",")
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'
 STORED AS TEXTFILE
 LOCATION '/user/daniel/projectscript/NorthwindCustomers';
 
