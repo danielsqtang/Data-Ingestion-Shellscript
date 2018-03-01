@@ -54,6 +54,7 @@ STORED AS TEXTFILE
 LOCATION '/user/daniel/projectscript/NorthwindOrderDetails';
 
 CREATE EXTERNAL TABLE IF NOT EXISTS NorthwindOrders (
+OrderID int,
 CustomerID string,
 EmployeeID int,
 OrderDate string,
@@ -65,7 +66,7 @@ ShipName string,
 ShipAddress string,
 ShipCity string,
 ShipRegion string,
-ShipPostalCode int,
+ShipPostalCode string,
 ShipCountry string
 )
 ROW FORMAT DELIMITED
