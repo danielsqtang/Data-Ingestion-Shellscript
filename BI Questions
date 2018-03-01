@@ -1,20 +1,39 @@
+#Setup for each shell script, one for each question.
+
+#!/bin/bash
+#Initialize pyspark2
+pyspark2 <<EOF
+#Setup SparkContext and SparkConf
+from pyspark import SparkContext, SparkConf
+conf = SparkConf().setAppName("NorthwindDenormalizer")
+sc = SparkContext(conf=conf)
+#Setup HiveContext for importing Hive tables
 from pyspark.sql import HiveContext
 hive_context = HiveContext(sc)
+#Import tables
 Orders = hive_context.table("NorthwindOrders")
 OrderDetails = hive_context.table("NorthwindOrderDetails")
 Customers = hive_context.table("NorthwindCustomers")
 Products = hive_context.table("NorthwindProducts")
 Flattened = hive_context.table("NorthwindFlattened")
+#Statements
+...
+...
+EOF
+
 
   1.Which country has the most customers? Which city has the most customers?
 // = Customers.filter(Customers['country'] != null)
   2.Which country has the most orders? Which city has the most orders?
 //
-  3.What are the top ten products in revenue for 1997? 
+  3.What are the top ten products in revenue for 1997?
+pyspark2 <<EOF
+
 Flattened1997 = Flattened.filter(pyspark.sql.functions.col("OrderDate").between('1997-01-01 00:00:00', '1997-12-30 00:00:00'))
 FlattenedWithRev = Flattened.withColumn("TotalRev", Flattened.quantity*Flattened.unitprice)
 totalrevenue = FlattenedWithRev.groupBy().sum('TotalRev')
 totalrevenue.collect()
+EOF
 $968714
   4.Which product is the most expensive? How much revenue has this product generated in the 1997 year?
 mostExpensive = Flattened.agg({"unitprice": "max"})
