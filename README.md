@@ -1,5 +1,5 @@
 # Data-Ingestion-Shellscript
-Practice project for automating ETL.
+Practice project for automating ETL using the northwind database.
 
 
 Order of shellscripts to be placed into Oozie Workflow
