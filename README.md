@@ -38,3 +38,13 @@ Script for cleansing.
 
 When making the flattened table, there were duplicate columns within the tables. Using equi-joins solved tables with only one common column, but if a table had two duplicate columns, there was a need to specifically exclude it when joining. 
 The address column value has a comma within it, causing mismatched columns when the hive table reads the file. Tried changing field delimiter for hive table, and also changed fields terminated by for sqoop import. Still has not fixed the table.
+
+business model standardization
+(dimensional modeling) include partitioning/bucketing
+fact and dimensions
+cleansing
+enrichment?
+conversion?
+business model for use cases
+
+library for the functions
