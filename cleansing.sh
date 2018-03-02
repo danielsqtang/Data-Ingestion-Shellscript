@@ -16,7 +16,7 @@ hive_context = HiveContext(sc)
 #Dropped duplicate columns by equi joining on multiple columns
 #create temp table and save to hive table
 
-for i in range(${#TABLENAMES[@]}):
+for i in ${!TABLENAMES[@]};
 do
 $TABLENAMES[i] = hive_context.table("$DATABASE$TABLENAMES[i]")
 $TABLENAMES[i] = $TABLENAMES[i].dropna(how='all')
