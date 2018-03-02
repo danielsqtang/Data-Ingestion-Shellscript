@@ -1,6 +1,6 @@
 #!/bin/bash
 #Pyspark2 method on flattening hive tables.
-
+source config.sh
 #Initialize pyspark2
 pyspark2 <<EOF
 
@@ -13,11 +13,13 @@ sc = SparkContext(conf=conf)
 from pyspark.sql import HiveContext
 hive_context = HiveContext(sc)
 
+${TABLENAMES[i]} = hive_context.table("$DATABASE${TABLENAMES[i]}")
 #Commands to run in pyspark
 Orders = hive_context.table("NorthwindOrders")
 OrderDetails = hive_context.table("NorthwindOrderDetails")
 Customers = hive_context.table("NorthwindCustomers")
 Products = hive_context.table("NorthwindProducts")
+#Join Tables
 Flattened = Orders.join(OrderDetails, ["OrderID"]).join(Customers, ["CustomerID"]).join(Products,["ProductID", "UnitPrice"])
 
 #Cleanse duplicate row data
