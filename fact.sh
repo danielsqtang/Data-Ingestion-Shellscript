@@ -9,8 +9,9 @@ from pyspark.sql import HiveContext
 hive_context = HiveContext(sc)
 
 NorthwindFlattened = hive_context.table("NorthwindFlattened")
-
 NorthwindFact=NorthwindFlattened.select('OrderID','ProductID','CustomerID','EmployeeID','SupplierID','CategoryID','UnitPrice','Quantity','Discount')
+
 #NorthwindFact.write.save('/user/daniel/projectscript/NorthwindFact',format='csv',mode='overwrite')
 $FACTTABLENAME.write.save('/user/daniel/projectscript/$FACTTABLENAME', format='csv', mode='overwrite')
+
 EOF
