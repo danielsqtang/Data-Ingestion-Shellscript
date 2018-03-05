@@ -13,7 +13,6 @@ sc = SparkContext(conf=conf)
 from pyspark.sql import HiveContext
 hive_context = HiveContext(sc)
 
-${TABLENAMES[i]} = hive_context.table("$DATABASE${TABLENAMES[i]}")
 #Commands to run in pyspark
 Orders = hive_context.table("NorthwindOrders")
 OrderDetails = hive_context.table("NorthwindOrderDetails")
