@@ -37,16 +37,6 @@ Query = sqlContext.sql("select * from $TEMPFLATTENEDTABLENAME")\
 #save to hdfs as csv
 $FLATTENEDTABLENAME.write.save('/user/daniel/projectscript/$FLATTENEDTABLENAME', format='csv', mode='overwrite')
 
-
-$FLATTENEDTABLENAME = $TABLENAME[0]\
-.join($TABLENAMES[1], ["$EQUIJOINCOLUMNS[0]"])\
-.join($TABLENAMES[2], ["$EQUIJOINCOLUMNS[1]"])\
-.join($TABLENAMES[3], ["$EQUIJOINCOLUMNS[2], $EQUIJOINCOLUMNS[3]"])
-
-
-
-
-
 #Create hive table from DF (Permission error here)
 #FlattenedFinal.createOrReplaceTempView("tempFlattenedFinal") 
 #sqlContext.sql("create table NorthwindFlattened as select * from tempFlattenedFinal");
