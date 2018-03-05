@@ -20,14 +20,32 @@ OrderDetails = hive_context.table("NorthwindOrderDetails")
 Customers = hive_context.table("NorthwindCustomers")
 Products = hive_context.table("NorthwindProducts")
 #Join Tables
-Flattened = Orders.join(OrderDetails, ["OrderID"]).join(Customers, ["CustomerID"]).join(Products,["ProductID", "UnitPrice"])
+#Flattened = Orders.join(OrderDetails, ["OrderID"]).join(Customers, ["CustomerID"]).join(Products,["ProductID", "UnitPrice"])
+
+$FLATTENEDTABLENAME = $TABLENAME[0]\
+.join($TABLENAMES[1], ["$EQUIJOINCOLUMNS[0]"])\
+.join($TABLENAMES[2], ["$EQUIJOINCOLUMNS[1]"])\
+.join($TABLENAMES[3], ["$EQUIJOINCOLUMNS[2], $EQUIJOINCOLUMNS[3]"])
 
 #Cleanse duplicate row data
-Flattened.createOrReplaceTempView("tempFlattened") 
-FlattenedFinal = sqlContext.sql("select distinct * from tempFlattened")
+$FLATTENEDTABLENAME.dropDuplicates()
+
+#Run Queries on temp table.
+$FLATTENEDTABLENAME.createOrReplaceTempView("$TEMPFLATTENEDTABLENAME")
+Query = sqlContext.sql("select * from $TEMPFLATTENEDTABLENAME")\
 
 #save to hdfs as csv
-FlattenedFinal.write.save('/user/daniel/projectscript/NorthwindFlattened', format='csv', mode='overwrite')
+$FLATTENEDTABLENAME.write.save('/user/daniel/projectscript/$FLATTENEDTABLENAME', format='csv', mode='overwrite')
+
+
+$FLATTENEDTABLENAME = $TABLENAME[0]\
+.join($TABLENAMES[1], ["$EQUIJOINCOLUMNS[0]"])\
+.join($TABLENAMES[2], ["$EQUIJOINCOLUMNS[1]"])\
+.join($TABLENAMES[3], ["$EQUIJOINCOLUMNS[2], $EQUIJOINCOLUMNS[3]"])
+
+
+
+
 
 #Create hive table from DF (Permission error here)
 #FlattenedFinal.createOrReplaceTempView("tempFlattenedFinal") 
