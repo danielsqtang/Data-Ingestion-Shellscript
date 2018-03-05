@@ -6,7 +6,7 @@ TABLENAMES=("Orders" "OrderDetails" "Customers" "Products")
 EQUIJOINCOLUMNS=("OrderID" "CustomerID" "ProductID" "UnitPrice")
 FLATTENEDTABLENAME="NorthwindFlattened"
 TEMPFLATTENEDTABLENAME="tempNorthwindFlattened"
-FACTTABLENAME="Fact"
+FACTTABLENAME="NorthwindFact"
 
 
 
