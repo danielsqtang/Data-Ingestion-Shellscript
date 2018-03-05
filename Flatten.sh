@@ -22,7 +22,7 @@ Products = hive_context.table("NorthwindProducts")
 #Join Tables
 #Flattened = Orders.join(OrderDetails, ["OrderID"]).join(Customers, ["CustomerID"]).join(Products,["ProductID", "UnitPrice"])
 
-$FLATTENEDTABLENAME = $TABLENAME[0]\
+$FLATTENEDTABLENAME = ($TABLENAME[0])\
 .join($TABLENAMES[1], ["$EQUIJOINCOLUMNS[0]"])\
 .join($TABLENAMES[2], ["$EQUIJOINCOLUMNS[1]"])\
 .join($TABLENAMES[3], ["$EQUIJOINCOLUMNS[2], $EQUIJOINCOLUMNS[3]"])
