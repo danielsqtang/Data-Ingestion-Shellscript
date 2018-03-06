@@ -3,11 +3,9 @@ Practice project for automating ETL using the northwind database.
 
 
 Order of shellscripts to be placed into Oozie Workflow
-RawData.sh --> Flatten.sh --> DenormalizedTable.sh --> BusinessIntelligence.sh
+RawData.sh --> hiveTable.sh --> cleansing.sh --> Flatten.sh --> DenormalizedTable.sh --> Fact.sh
 
-
-
-Practice Business Intelligence Questions I Made Up
+Practice Business Intelligence Questions I Made Up To Consider
 1.Which country has the most customers? Which city has the most customers?
 2.Which country has the most orders? Which city has the most orders?
 3.What are the top ten products in revenue? 
@@ -26,25 +24,21 @@ Practice Business Intelligence Questions I Made Up
 Outline:
 Sqoop import
 Create hive table
-Flattened Products,Orders,OrderDetails and Customers
-SH1
-Prepped business intelligence questions
-Spark to answer them. Kept queries. ask about new hive db?
-script for each answer
+Cleanse Data
+Flatten Tables
+Setup Star Schema
+Prepare Fact Table
+Dimension Tables
+
 Oozie to schedule scripts
 
-When making the flattened table, there were duplicate columns within the tables. Using equi-joins solved tables with only one common column, but if a table had two duplicate columns, there was a need to specifically exclude it when joining. 
-The address column value has a comma within it, causing mismatched columns when the hive table reads the file. Tried changing field delimiter for hive table, and also changed fields terminated by for sqoop import. Still has not fixed the table.
 
 business model standardization
 (dimensional modeling) include partitioning/bucketing
 fact and dimensions
-cleansing
 enrichment?
 conversion?
-business model for use cases
 
-library for the functions
 
 
 
