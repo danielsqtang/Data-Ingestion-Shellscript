@@ -1,0 +1,75 @@
+
+pyspark2 <<EOF
+#Setup dimensional tables
+DimOrders = Orders.join(OrderDetails,["OrderID"])
+DimCustomers = Customers
+DimProducts = Products
+
+DimOrders.write.save('/user/daniel/projectscript/dimensions/Orders',format='csv',mode='overwrite')
+DimCustomers.write.save('/user/daniel/projectscript/dimensions/Customers',format='csv',mode='overwrite')
+DimProducts.write.save('/user/daniel/projectscript/dimensions/Products',format='csv',mode='overwrite')
+EOF
+
+
+CREATE EXTERNAL TABLE IF NOT EXISTS DimOrders (
+orderid int, 
+customerid STRING, 
+employeeid int, 
+orderdate string,
+requireddate string, 
+shippeddate string, 
+shipvia int, 
+freight decimal, 
+shipname string, 
+shipaddress string, 
+shipcity STRING, 
+shipregion string, 
+shippostalcode string, 
+shipcountry string, 
+productid int,
+unitprice decimal, 
+quantity int, 
+discount double
+)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'
+STORED AS TEXTFILE
+LOCATION '/user/daniel/projectscript/dimensions/Orders';
+
+CREATE EXTERNAL TABLE IF NOT EXISTS DimProducts (
+ProductID int,
+ProductName string,
+SupplierID int,
+CategoryID int,
+QuantityPerUnit string,
+UnitPrice decimal,
+UnitsInStock int,
+UnitsOnOrder int,
+ReorderLevel int,
+Discontinued boolean
+)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'
+STORED AS TEXTFILE
+LOCATION '/user/daniel/projectscript/dimensions/Products';
+
+CREATE EXTERNAL TABLE IF NOT EXISTS DimCustomers (
+CustomerID string,
+CompanyName string,
+ContactName string,
+ContactTitle string,
+Address string,
+City string,
+Region string,
+PostalCode string,
+Country string,
+Phone string,
+Fax string
+)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'
+STORED AS TEXTFILE
+LOCATION '/user/daniel/projectscript/dimensions/Customers';
