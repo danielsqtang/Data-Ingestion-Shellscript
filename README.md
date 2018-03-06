@@ -1,14 +1,14 @@
 # Data-Ingestion-Shellscript
 Practice project for automating ETL using the northwind database.
 
-
 Order of shellscripts to be placed into Oozie Workflow\
 RawData.sh \
 hiveTable.sh\
 cleansing.sh \
 Flatten.sh \
 DenormalizedTable.sh \
-Fact.sh
+Fact.sh\
+Dimensions
 
 Practice Business Intelligence Questions I Made Up To Consider
 1.Which country has the most customers? Which city has the most customers?
@@ -42,9 +42,4 @@ business model standardization
 (dimensional modeling) include partitioning/bucketing
 fact and dimensions
 enrichment?
-conversion?
-
-
-
-
-
+conversion?\
