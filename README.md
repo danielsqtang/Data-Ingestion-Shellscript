@@ -3,11 +3,11 @@ Practice project for automating ETL using the northwind database.
 
 
 Order of shellscripts to be placed into Oozie Workflow\
-RawData.sh 
-hiveTable.sh
-cleansing.sh 
-Flatten.sh 
-DenormalizedTable.sh 
+RawData.sh \
+hiveTable.sh\
+cleansing.sh \
+Flatten.sh \
+DenormalizedTable.sh \
 Fact.sh
 
 Practice Business Intelligence Questions I Made Up To Consider
